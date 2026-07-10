@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khảo sát Nhu cầu Đào tạo - Bán sản phẩm QLGS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            background: #667eea;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        label {
+            display: block;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        
+        .product-group {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .question {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+        
+        .checkbox-group {
+            margin-left: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+        
+        .checkbox-item label {
+            margin: 0;
+            margin-bottom: 0;
+            font-weight: 400;
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .detail-input {
+            display: none;
+            margin-left: 28px;
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .detail-input.show {
+            display: block;
+        }
+        
+        .detail-input textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 13px;
+            resize: vertical;
+            min-height: 80px;
+            transition: border-color 0.3s;
+        }
+        
+        .detail-input textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn {
+            background: #667eea;
+            color: white;
+            flex: 1;
+            max-width: 200px;
+        }
+        
+        .submit-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .reset-btn {
+            background: #e0e0e0;
+            color: #333;
+            flex: 1;
+            max-width: 200px;
+        }
+        
+        .reset-btn:hover {
+            background: #d0d0d0;
+        }
+        
+        .export-btn {
+            background: #48bb78;
+            color: white;
+            flex: 1;
+            max-width: 200px;
+        }
+        
+        .export-btn:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+        }
+        
+        .success-message {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .submit-btn,
+            .reset-btn,
+            .export-btn {
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Khảo sát Nhu cầu Đào tạo</h1>
+            <p>Bán sản phẩm QLGS - KienlongBank</p>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            ✓ Gửi khảo sát thành công! Cảm ơn bạn đã phản hồi.
+        </div>
+        
+        <form id="surveyForm">
+            <!-- PHẦN 1: THÔNG TIN CÁ NHÂN -->
+            <div class="form-section">
+                <div class="section-title">Phần 1: Thông tin cá nhân</div>
+                
+                <div class="form-group">
+                    <label for="name">Họ tên *</label>
+                    <input type="text" id="name" name="name" required placeholder="Nhập họ tên">
+                </div>
+                
+                <div class="form-group">
+                    <label for="center">Trung tâm *</label>
+                    <input type="text" id="center" name="center" required placeholder="Nhập trung tâm">
+                </div>
+                
+                <div class="form-group">
+                    <label for="department">Phòng *</label>
+                    <input type="text" id="department" name="department" required placeholder="Nhập phòng">
+                </div>
+                
+                <div class="form-group">
+                    <label for="position">Vị trí công việc *</label>
+                    <input type="text" id="position" name="position" required placeholder="Nhập vị trí công việc">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email (tùy chọn)</label>
+                    <input type="email" id="email" name="email" placeholder="Nhập email">
+                </div>
+            </div>
+            
+            <!-- PHẦN 2: KHẢO SÁT SẢN PHẨM -->
+            <div class="form-section">
+                <div class="section-title">Phần 2: Khảo sát sản phẩm</div>
+                <p style="color: #666; margin-bottom: 20px; font-size: 14px;">
+                    <strong>Hướng dẫn:</strong> Đối với mỗi sản phẩm, vui lòng chọn các nội dung bạn muốn sáng tỏ và nhập chi tiết vướng mắc nếu có.
+                </p>
+                
+                <!-- SẢN PHẨM 1: HUY ĐỘNG VỐN -->
+                <div class="product-group">
+                    <div class="product-title">1️⃣ Huy động vốn</div>
+                    <div class="question">Để bán được sản phẩm này, bạn mong muốn sáng tỏ nội dung gì?</div>
+                    
+                    <div class="checkbox-group">
+                        <!-- Sản phẩm -->
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp1_product" name="sp1_product" class="product-check" data-product="1" data-category="Sản phẩm">
+                            <label for="sp1_product">Sản phẩm</label>
+                        </div>
+                        <div class="detail-input" id="sp1_product_detail">
+                            <textarea name="sp1_product_text" placeholder="Nhập chi tiết nội dung vướng mắc về Sản phẩm..."></textarea>
+                        </div>
+                        
+                        <!-- Kịch bản bán hàng -->
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp1_scenario" name="sp1_scenario" class="product-check" data-product="1" data-category="Kịch bản bán hàng">
+                            <label for="sp1_scenario">Kịch bản bán hàng</label>
+                        </div>
+                        <div class="detail-input" id="sp1_scenario_detail">
+                            <textarea name="sp1_scenario_text" placeholder="Nhập chi tiết nội dung vướng mắc về Kịch bản bán hàng..."></textarea>
+                        </div>
+                        
+                        <!-- Chính sách bán hàng -->
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp1_policy" name="sp1_policy" class="product-check" data-product="1" data-category="Chính sách bán hàng">
+                            <label for="sp1_policy">Chính sách bán hàng</label>
+                        </div>
+                        <div class="detail-input" id="sp1_policy_detail">
+                            <textarea name="sp1_policy_text" placeholder="Nhập chi tiết nội dung vướng mắc về Chính sách bán hàng..."></textarea>
+                        </div>
+                        
+                        <!-- Luồng giao dịch -->
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp1_process" name="sp1_process" class="product-check" data-product="1" data-category="Luồng giao dịch">
+                            <label for="sp1_process">Luồng giao dịch</label>
+                        </div>
+                        <div class="detail-input" id="sp1_process_detail">
+                            <textarea name="sp1_process_text" placeholder="Nhập chi tiết nội dung vướng mắc về Luồng giao dịch..."></textarea>
+                        </div>
+                        
+                        <!-- Ý kiến khác -->
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp1_other" name="sp1_other" class="product-check" data-product="1" data-category="Ý kiến khác">
+                            <label for="sp1_other">Ý kiến khác</label>
+                        </div>
+                        <div class="detail-input" id="sp1_other_detail">
+                            <textarea name="sp1_other_text" placeholder="Nhập ý kiến khác..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SẢN PHẨM 2: CAPITAL -->
+                <div class="product-group">
+                    <div class="product-title">2️⃣ Capital (BĐS tài chính)</div>
+                    <div class="question">Để bán được sản phẩm này, bạn mong muốn sáng tỏ nội dung gì?</div>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp2_product" name="sp2_product" class="product-check" data-product="2" data-category="Sản phẩm">
+                            <label for="sp2_product">Sản phẩm</label>
+                        </div>
+                        <div class="detail-input" id="sp2_product_detail">
+                            <textarea name="sp2_product_text" placeholder="Nhập chi tiết nội dung vướng mắc về Sản phẩm..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp2_scenario" name="sp2_scenario" class="product-check" data-product="2" data-category="Kịch bản bán hàng">
+                            <label for="sp2_scenario">Kịch bản bán hàng</label>
+                        </div>
+                        <div class="detail-input" id="sp2_scenario_detail">
+                            <textarea name="sp2_scenario_text" placeholder="Nhập chi tiết nội dung vướng mắc về Kịch bản bán hàng..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp2_policy" name="sp2_policy" class="product-check" data-product="2" data-category="Chính sách bán hàng">
+                            <label for="sp2_policy">Chính sách bán hàng</label>
+                        </div>
+                        <div class="detail-input" id="sp2_policy_detail">
+                            <textarea name="sp2_policy_text" placeholder="Nhập chi tiết nội dung vướng mắc về Chính sách bán hàng..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp2_process" name="sp2_process" class="product-check" data-product="2" data-category="Luồng giao dịch">
+                            <label for="sp2_process">Luồng giao dịch</label>
+                        </div>
+                        <div class="detail-input" id="sp2_process_detail">
+                            <textarea name="sp2_process_text" placeholder="Nhập chi tiết nội dung vướng mắc về Luồng giao dịch..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp2_other" name="sp2_other" class="product-check" data-product="2" data-category="Ý kiến khác">
+                            <label for="sp2_other">Ý kiến khác</label>
+                        </div>
+                        <div class="detail-input" id="sp2_other_detail">
+                            <textarea name="sp2_other_text" placeholder="Nhập ý kiến khác..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SẢN PHẨM 3: THU HỘ TRÁI PHIẾU -->
+                <div class="product-group">
+                    <div class="product-title">3️⃣ Thu hộ trái phiếu</div>
+                    <div class="question">Để bán được sản phẩm này, bạn mong muốn sáng tỏ nội dung gì?</div>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp3_product" name="sp3_product" class="product-check" data-product="3" data-category="Sản phẩm">
+                            <label for="sp3_product">Sản phẩm</label>
+                        </div>
+                        <div class="detail-input" id="sp3_product_detail">
+                            <textarea name="sp3_product_text" placeholder="Nhập chi tiết nội dung vướng mắc về Sản phẩm..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp3_scenario" name="sp3_scenario" class="product-check" data-product="3" data-category="Kịch bản bán hàng">
+                            <label for="sp3_scenario">Kịch bản bán hàng</label>
+                        </div>
+                        <div class="detail-input" id="sp3_scenario_detail">
+                            <textarea name="sp3_scenario_text" placeholder="Nhập chi tiết nội dung vướng mắc về Kịch bản bán hàng..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp3_policy" name="sp3_policy" class="product-check" data-product="3" data-category="Chính sách bán hàng">
+                            <label for="sp3_policy">Chính sách bán hàng</label>
+                        </div>
+                        <div class="detail-input" id="sp3_policy_detail">
+                            <textarea name="sp3_policy_text" placeholder="Nhập chi tiết nội dung vướng mắc về Chính sách bán hàng..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp3_process" name="sp3_process" class="product-check" data-product="3" data-category="Luồng giao dịch">
+                            <label for="sp3_process">Luồng giao dịch</label>
+                        </div>
+                        <div class="detail-input" id="sp3_process_detail">
+                            <textarea name="sp3_process_text" placeholder="Nhập chi tiết nội dung vướng mắc về Luồng giao dịch..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp3_other" name="sp3_other" class="product-check" data-product="3" data-category="Ý kiến khác">
+                            <label for="sp3_other">Ý kiến khác</label>
+                        </div>
+                        <div class="detail-input" id="sp3_other_detail">
+                            <textarea name="sp3_other_text" placeholder="Nhập ý kiến khác..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SẢN PHẨM 4: K-GALAXY -->
+                <div class="product-group">
+                    <div class="product-title">4️⃣ K-Galaxy</div>
+                    <div class="question">Để bán được sản phẩm này, bạn mong muốn sáng tỏ nội dung gì?</div>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp4_product" name="sp4_product" class="product-check" data-product="4" data-category="Sản phẩm">
+                            <label for="sp4_product">Sản phẩm</label>
+                        </div>
+                        <div class="detail-input" id="sp4_product_detail">
+                            <textarea name="sp4_product_text" placeholder="Nhập chi tiết nội dung vướng mắc về Sản phẩm..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp4_scenario" name="sp4_scenario" class="product-check" data-product="4" data-category="Kịch bản bán hàng">
+                            <label for="sp4_scenario">Kịch bản bán hàng</label>
+                        </div>
+                        <div class="detail-input" id="sp4_scenario_detail">
+                            <textarea name="sp4_scenario_text" placeholder="Nhập chi tiết nội dung vướng mắc về Kịch bản bán hàng..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp4_policy" name="sp4_policy" class="product-check" data-product="4" data-category="Chính sách bán hàng">
+                            <label for="sp4_policy">Chính sách bán hàng</label>
+                        </div>
+                        <div class="detail-input" id="sp4_policy_detail">
+                            <textarea name="sp4_policy_text" placeholder="Nhập chi tiết nội dung vướng mắc về Chính sách bán hàng..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp4_process" name="sp4_process" class="product-check" data-product="4" data-category="Luồng giao dịch">
+                            <label for="sp4_process">Luồng giao dịch</label>
+                        </div>
+                        <div class="detail-input" id="sp4_process_detail">
+                            <textarea name="sp4_process_text" placeholder="Nhập chi tiết nội dung vướng mắc về Luồng giao dịch..."></textarea>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="sp4_other" name="sp4_other" class="product-check" data-product="4" data-category="Ý kiến khác">
+                            <label for="sp4_other">Ý kiến khác</label>
+                        </div>
+                        <div class="detail-input" id="sp4_other_detail">
+                            <textarea name="sp4_other_text" placeholder="Nhập ý kiến khác..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NÚT HÀNH ĐỘNG -->
+            <div class="button-group">
+                <button type="reset" class="reset-btn">↻ Xóa dữ liệu</button>
+                <button type="button" class="export-btn" onclick="exportToCSV()">📥 Xuất CSV</button>
+                <button type="submit" class="submit-btn">✓ Gửi khảo sát</button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        // Xử lý hiển thị/ẩn trường input khi checkbox được click
+        const checkboxes = document.querySelectorAll('.product-check');
+        
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const product = this.getAttribute('data-product');
+                const category = this.getAttribute('data-category');
+                const categoryKey = category.toLowerCase()
+                    .replace(/ /g, '_')
+                    .replace(/[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỡđ]/g, function(c) {
+                        const map = {
+                            'à': 'a', 'á': 'a', 'ạ': 'a', 'ả': 'a', 'ã': 'a',
+                            'â': 'a', 'ầ': 'a', 'ấ': 'a', 'ậ': 'a', 'ẩ': 'a', 'ẫ': 'a',
+                            'ă': 'a', 'ằ': 'a', 'ắ': 'a', 'ặ': 'a', 'ẳ': 'a', 'ẵ': 'a',
+                            'è': 'e', 'é': 'e', 'ẹ': 'e', 'ẻ': 'e', 'ẽ': 'e',
+                            'ê': 'e', 'ề': 'e', 'ế': 'e', 'ệ': 'e', 'ể': 'e', 'ễ': 'e',
+                            'ì': 'i', 'í': 'i', 'ị': 'i', 'ỉ': 'i', 'ĩ': 'i',
+                            'ò': 'o', 'ó': 'o', 'ọ': 'o', 'ỏ': 'o', 'õ': 'o',
+                            'ô': 'o', 'ồ': 'o', 'ố': 'o', 'ộ': 'o', 'ổ': 'o', 'ỗ': 'o',
+                            'ơ': 'o', 'ờ': 'o', 'ớ': 'o', 'ợ': 'o', 'ở': 'o', 'ỡ': 'o',
+                            'ù': 'u', 'ú': 'u', 'ụ': 'u', 'ủ': 'u', 'ũ': 'u',
+                            'ư': 'u', 'ừ': 'u', 'ứ': 'u', 'ự': 'u', 'ử': 'u', 'ữ': 'u',
+                            'ỳ': 'y', 'ý': 'y', 'ỵ': 'y', 'ỷ': 'y', 'ỡ': 'y',
+                            'đ': 'd'
+                        };
+                        return map[c] || c;
+                    });
+                
+                const detailId = `sp${product}_${categoryKey}_detail`;
+                const detailElement = document.getElementById(detailId);
+                
+                if (detailElement) {
+                    if (this.checked) {
+                        detailElement.classList.add('show');
+                    } else {
+                        detailElement.classList.remove('show');
+                        // Xóa nội dung khi bỏ chọn
+                        const textarea = detailElement.querySelector('textarea');
+                        if (textarea) textarea.value = '';
+                    }
+                }
+            });
+        });
+        
+        // Xử lý submit form
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Lưu vào localStorage
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            localStorage.setItem('surveyData', JSON.stringify(data));
+            
+            // Gửi tới Google Sheets qua Apps Script
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '⏳ Đang gửi...';
+            submitBtn.disabled = true;
+            
+            // Deployment URL của bạn
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMWiMUdQl09roR6v_YYWDP8IrZrMfBs-cW8OM12fZ-17YRfG9Drtbwtbq-WYLlSk9-/exec';
+            
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Hiển thị thông báo thành công
+                    const successMsg = document.getElementById('successMessage');
+                    successMsg.textContent = '✓ Gửi khảo sát thành công! Dữ liệu đã được lưu vào Google Sheets.';
+                    successMsg.classList.add('show');
+                    
+                    // Reset form sau 2 giây
+                    setTimeout(() => {
+                        document.getElementById('surveyForm').reset();
+                        successMsg.classList.remove('show');
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // Ẩn các trường chi tiết
+                        document.querySelectorAll('.detail-input.show').forEach(el => {
+                            el.classList.remove('show');
+                        });
+                    }, 2000);
+                } else {
+                    alert('Có lỗi: ' + result.error);
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Lỗi kết nối: ' + error.message);
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+        
+        // Xuất dữ liệu sang CSV
+        function exportToCSV() {
+            const formData = new FormData(document.getElementById('surveyForm'));
+            const data = Object.fromEntries(formData);
+            
+            // Tạo file CSV
+            let csv = 'Khảo sát Nhu cầu Đào tạo - KienlongBank\n\n';
+            csv += 'THÔNG TIN CÁ NHÂN\n';
+            csv += `Họ tên,${data.name || ''}\n`;
+            csv += `Trung tâm,${data.center || ''}\n`;
+            csv += `Phòng,${data.department || ''}\n`;
+            csv += `Vị trí công việc,${data.position || ''}\n`;
+            csv += `Email,${data.email || ''}\n\n`;
+            
+            csv += 'KHẢO SÁT SẢN PHẨM\n';
+            
+            const products = [
+                { num: 1, name: 'Huy động vốn' },
+                { num: 2, name: 'Capital (BĐS tài chính)' },
+                { num: 3, name: 'Thu hộ trái phiếu' },
+                { num: 4, name: 'K-Galaxy' }
+            ];
+            
+            const categories = ['product', 'scenario', 'policy', 'process', 'other'];
+            const categoryNames = ['Sản phẩm', 'Kịch bản bán hàng', 'Chính sách bán hàng', 'Luồng giao dịch', 'Ý kiến khác'];
+            
+            products.forEach(product => {
+                csv += `\n"${product.name}"\n`;
+                categories.forEach((cat, idx) => {
+                    const checkboxName = `sp${product.num}_${cat}`;
+                    const textName = `sp${product.num}_${cat}_text`;
+                    
+                    if (data[checkboxName] === 'on' || data[checkboxName] === true) {
+                        csv += `"${categoryNames[idx]}","${(data[textName] || '').replace(/"/g, '""')}"\n`;
+                    }
+                });
+            });
+            
+            // Tải file
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURIComponent(csv));
+            element.setAttribute('download', `khao_sat_dao_tao_${new Date().toISOString().split('T')[0]}.csv`);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
+    </script>
+</body>
+</html>
